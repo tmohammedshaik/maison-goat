@@ -244,3 +244,8 @@ body.bien{background:var(--deep);color:var(--clair)}
 .fourchette{font:400 clamp(22px,2.4vw,30px)/1.2 var(--serif);color:var(--encre)!important}
 .fourchette b{font-weight:400;color:#E8D27A}
 @media (max-width:860px){.band:nth-child(odd) .txt,.band:nth-child(even) .txt{margin:-14vh 12px 0;order:2;background:color-mix(in srgb,var(--b-deep) 62%,transparent)}.band .media{order:1}}
+
+/* iPhone en économie d'énergie : jamais de bouton lecture, l'image zoome lentement à la place */
+video::-webkit-media-controls,video::-webkit-media-controls-start-playback-button,video::-webkit-media-controls-overlay-play-button{display:none!important;-webkit-appearance:none;opacity:0}
+video.kb{animation:kb 16s ease-in-out infinite alternate}
+@keyframes kb{from{scale:1}to{scale:1.14}}
