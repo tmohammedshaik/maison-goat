@@ -138,8 +138,8 @@ if (document.body.dataset.page === "accueil") {
 
 // ================= PAGE D'UN BIEN =================
 if (document.body.dataset.page === "bien") {
-  const b = MG.biens.find(x => x.id === document.body.dataset.id), R = document.documentElement.style;
-  R.setProperty("--sig", b.sig); R.setProperty("--deep", b.deep); R.setProperty("--clair", b.clair);
+  const b = MG.biens.find(x => x.id === document.body.dataset.id), ST = document.documentElement.style;
+  ST.setProperty("--sig", b.sig); ST.setProperty("--deep", b.deep); ST.setProperty("--clair", b.clair);
   $(".bhero .media").innerHTML = video(b.id);
   if (!calme) addEventListener("scroll", () => { const z = 1.12 - Math.min(.12, scrollY/innerHeight*.12); $(".bhero video").style.setProperty("--z", z); }, {passive:true});
 
