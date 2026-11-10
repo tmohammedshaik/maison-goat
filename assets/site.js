@@ -49,6 +49,15 @@ const lecteur = new IntersectionObserver(es => es.forEach(e => {
 }), {threshold:.15});
 const video = (id, cls="") => `<video class="${cls}" data-src="${R}assets/video/${id}.mp4" poster="${R}assets/video/${id}.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>`;
 const armerVideos = () => $$("video[data-src]").forEach(v => lecteur.observe(v));
+// L'iPhone remet les vidéos en pause quand on revient sur la page (bouton retour, retour dans Safari)
+// sans qu'aucune n'« entre » dans l'écran : on relance celles qui sont visibles.
+// Le premier toucher relance aussi (mode économie d'énergie, qui bloque la lecture automatique).
+const relancer = () => { if (calme || economie || document.hidden) return; $$("video").forEach(v => {
+  const r = v.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight || !r.height) return;
+  if (!v.src && v.dataset.src) v.src = v.dataset.src; v.muted = true; if (v.paused) v.play().catch(()=>{}); }); };
+addEventListener("pageshow", relancer);
+document.addEventListener("visibilitychange", relancer);
+addEventListener("touchend", relancer, {passive:true});
 
 // L'étoile à huit branches (deux carrés croisés)
 const ZEL = '<svg class="zellige" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 8 62 38 92 50 62 62 50 92 38 62 8 50 38 38Z"/><path d="M20 20 50 32 80 20 68 50 80 80 50 68 20 80 32 50Z"/><path d="M50 36a14 14 0 1 1 0 28a14 14 0 1 1 0-28"/></svg>';
