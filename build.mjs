@@ -4,7 +4,8 @@ import { readFileSync, writeFileSync, mkdirSync, cpSync, rmSync } from "node:fs"
 import vm from "node:vm";
 
 const ctx = { window: {} }; vm.runInNewContext(readFileSync("assets/data.js", "utf8"), ctx);
-rmSync("docs", { recursive: true, force: true }); cpSync("assets", "docs/assets", { recursive: true }); cpSync("index.html", "docs/index.html");
+rmSync("docs", { recursive: true, force: true }); cpSync("assets", "docs/assets", { recursive: true }); const ver = h => h.replace(/(assets\/(?:site|data)\.js|assets\/style\.css)"/g, `$1?v=${Date.now()}"`);
+writeFileSync("docs/index.html", ver(readFileSync("index.html", "utf8")));
 const MG = ctx.window.MG, tpl = readFileSync("maison.html", "utf8");
 const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");
 
@@ -14,6 +15,6 @@ for (const b of MG.biens) {
     containsPlace:{ "@type":"Accommodation", occupancy:{ "@type":"QuantitativeValue", maxValue:b.pers }, numberOfBedrooms:b.ch } }).replace(/</g,"\\u003c");
   const v = { ...b, photos: b.photos - (b.sans||[]).length, atouts: b.atouts.map(a => `<li>${esc(a)}</li>`).join(""), jsonld };
   const html = tpl.replace(/\{\{(\w+)\}\}/g, (_, k) => k === "atouts" || k === "jsonld" ? v[k] : esc(v[k] ?? ""));
-  mkdirSync(`docs/${b.slug}`, { recursive: true }); writeFileSync(`docs/${b.slug}/index.html`, html);
+  mkdirSync(`docs/${b.slug}`, { recursive: true }); writeFileSync(`docs/${b.slug}/index.html`, ver(html));
   console.log("page :", `/${b.slug}/`);
 }
