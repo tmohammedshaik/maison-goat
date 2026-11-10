@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Maison Goat · Questionnaire</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0E0D0C">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Montserrat:wght@400;500;600;800&display=swap">
+<style>
+:root{--nuit:#0E0D0C;--encre:#F2EFEA;--gris:#A39E97;--goat:#B40035;--c:#E8D27A;--d:#0E0D0C;
+  --serif:"Instrument Serif",Georgia,serif;--sans:"Montserrat","Helvetica Neue",Arial,sans-serif;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--d);color:var(--encre);font:400 16px/1.5 var(--sans);transition:background-color .6s;-webkit-font-smoothing:antialiased}
+.app{min-height:100%;display:flex;flex-direction:column;max-width:620px;margin:0 auto;padding:calc(16px + env(safe-area-inset-top,0px)) max(18px,env(safe-area-inset-right,0px)) calc(160px + env(safe-area-inset-bottom,0px)) max(18px,env(safe-area-inset-left,0px))}
+.logo{display:inline-flex;flex-direction:column;align-items:center;line-height:1}
+.logo b{font:500 8px var(--sans);letter-spacing:.62em;margin-right:-.62em}
+.logo span{font:800 19px var(--sans)}
+.logo i{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--goat);margin-left:2px}
+.haut{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.partie{font:500 10px var(--sans);letter-spacing:.25em;text-transform:uppercase;color:var(--c);text-align:right}
+.barre{height:3px;background:rgba(255,255,255,.12);border-radius:3px;margin:14px 0 26px;overflow:hidden}
+.barre i{display:block;height:100%;background:var(--c);transition:width .4s}
+h1{font:400 clamp(34px,9vw,46px)/1.05 var(--serif);margin:0 0 6px;text-wrap:balance}
+h1 em{color:var(--c)}
+.photo{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:4px;margin:6px 0 4px}
+.qui{color:var(--gris);font-size:14px;margin:0 0 6px}
+.champ{margin-top:26px}
+.champ>label,.champ>.lab{display:block;font-weight:600;margin-bottom:12px;font-size:15.5px}
+.puces{display:flex;flex-wrap:wrap;gap:8px}
+.puce{border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.04);border-radius:999px;padding:11px 16px;font:500 14.5px var(--sans);color:var(--encre);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.puce[aria-pressed="true"]{background:var(--c);border-color:var(--c);color:#14110e}
+.puce.autre{border-style:dashed}
+input[type=text],input[type=number],textarea{width:100%;font:500 17px var(--sans);color:var(--encre);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:13px 14px;margin-top:10px}
+textarea{min-height:110px;resize:vertical}
+input:focus,textarea:focus{outline:2px solid var(--c);outline-offset:1px}
+.prix{display:flex;align-items:center;gap:10px}.prix input{max-width:160px;margin:0}.prix span{color:var(--gris)}
+.pas{display:flex;align-items:center;gap:18px}
+.pas button{width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:none;color:var(--encre);font-size:22px;cursor:pointer}
+.pas output{font:400 40px/1 var(--serif);min-width:2ch;text-align:center}
+.nav{position:fixed;left:0;right:0;bottom:0;padding:14px max(18px,env(safe-area-inset-right,0px)) calc(64px + env(safe-area-inset-bottom,0px)) max(18px,env(safe-area-inset-left,0px));background:linear-gradient(transparent,var(--d) 25%);display:flex;justify-content:center}
+.nav div{display:flex;gap:10px;width:100%;max-width:620px}
+.nav button{flex:1;border:0;border-radius:999px;padding:17px;font:600 13px var(--sans);letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.suiv{background:var(--goat);color:#fff}
+.prec{background:rgba(255,255,255,.1);color:var(--encre);flex:0 0 auto!important;padding:17px 22px!important}
+.intro p{color:#d6d1ca;font-size:17px}
+.intro .temps{display:flex;gap:18px;margin:26px 0;color:var(--gris);font-size:14px}
+.intro .temps b{display:block;font:400 34px/1 var(--serif);color:var(--encre)}
+.merci h1{margin-top:20vh}
+.etat{font-size:13px;color:var(--gris);margin-top:22px;min-height:1.2em}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<form name="gerant" data-netlify="true" netlify-honeypot="piege" hidden>
+  <input name="session"><input name="avancement"><textarea name="reponses"></textarea><input name="piege">
+</form>
+<main class="app" id="app"></main>
+<nav class="nav" id="nav"></nav>
+<script src="questions.js"></script>
+<script>
+const CLE = "mg-questionnaire-v1";
+let S; try { S = JSON.parse(localStorage.getItem(CLE)) } catch(e) {}
+if (!S) S = { rep:{}, i:-1, session: Date.now().toString(36) + Math.random().toString(36).slice(2,6) };
+const ETAPES = PARTIES.flatMap((p,pi) => p.etapes.map((e,k) => ({ ...e, p, pi, k, der: k === p.etapes.length-1 })));
+const app = document.getElementById("app"), nav = document.getElementById("nav");
+const garder = () => { try { localStorage.setItem(CLE, JSON.stringify(S)) } catch(e) {} };
+const esc = t => String(t).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const LOGO = '<span class="logo"><b>MAISON</b><span>GOAT<i></i></span></span>';
+
+function envoyer(avancement){
+  const corps = new URLSearchParams({ "form-name":"gerant", session:S.session, avancement, reponses:JSON.stringify(S.rep, null, 1) });
+  return fetch("/", { method:"POST", headers:{ "Content-Type":"application/x-www-form-urlencoded" }, body:corps.toString() })
+    .then(r => r.ok, () => false);
+}
+
+function couleur(m){ document.documentElement.style.setProperty("--c", m ? m.c : "#E8D27A"); document.documentElement.style.setProperty("--d", m ? m.d : "#0E0D0C"); }
+
+function champ(f){
+  const v = S.rep[f.id], lab = `<span class="lab">${esc(f.label)}</span>`;
+  if (f.type === "choix" || f.type === "multi") {
+    const sel = f.type === "multi" ? (v||[]) : [v];
+    const autreTexte = S.rep[f.id+"_autre"] || "";
+    const autreOn = f.type === "multi" ? autreTexte !== "" || sel.includes("__autre") : v === "__autre";
+    return `<div class="champ">${lab}<div class="puces">` +
+      f.options.map(o => `<button type="button" class="puce" data-f="${f.id}" data-v="${esc(o)}" aria-pressed="${sel.includes(o)}">${esc(o)}</button>`).join("") +
+      (f.autre ? `<button type="button" class="puce autre" data-f="${f.id}" data-v="__autre" aria-pressed="${autreOn}">${typeof f.autre === "string" ? esc(f.autre) : "Autre"}</button>` : "") +
+      `</div>${f.autre ? `<input type="text" data-autre="${f.id}" value="${esc(autreTexte)}" placeholder="Écrivez ici" ${autreOn ? "" : "hidden"}>` : ""}</div>`;
+  }
+  if (f.type === "nombre") return `<div class="champ">${lab}<div class="pas"><button type="button" data-moins="${f.id}" aria-label="Moins">−</button><output>${v ?? "–"}</output><button type="button" data-plus="${f.id}" aria-label="Plus">+</button></div></div>`;
+  if (f.type === "prix") return `<div class="champ">${lab}<div class="prix"><input type="number" inputmode="numeric" min="0" data-t="${f.id}" value="${esc(v??"")}" placeholder="ex. 120"><span>€ la nuit</span></div></div>`;
+  return `<div class="champ">${lab}${f.long ? `<textarea data-t="${f.id}" placeholder="Écrivez librement, même en vrac">${esc(v??"")}</textarea>` : `<input type="text" data-t="${f.id}" value="${esc(v??"")}">`}</div>`;
+}
+
+function dessiner(){
+  scrollTo(0,0);
+  if (S.i < 0) { couleur(null);
+    app.innerHTML = `<div class="intro">${LOGO}<h1 style="margin-top:9vh">Vos maisons, <em>racontées une fois pour toutes.</em></h1>
+      <p>Vous répondez une seule fois. Ensuite, le site et l'assistant répondent aux clients à votre place : prix, arrivée, règles, services.</p>
+      <div class="temps"><div><b>${ETAPES.length}</b>écrans</div><div><b>10-15</b>minutes</div><div><b>${MAISONS.length}</b>maisons</div></div>
+      <p style="font-size:14px;color:var(--gris)">Presque tout se fait en touchant des réponses. Si une question ne vous parle pas, passez-la. Vos réponses sont gardées : vous pouvez fermer et reprendre plus tard sur ce téléphone.</p></div>`;
+    nav.innerHTML = `<div><button class="suiv" data-go="1">${Object.keys(S.rep).length ? "Reprendre" : "Commencer"}</button></div>`; return; }
+  if (S.i >= ETAPES.length) { couleur(null);
+    app.innerHTML = `<div class="merci">${LOGO}<h1>Merci, <em>c'est tout bon.</em></h1><p>Vos réponses sont arrivées chez nous. Nous mettons le site à jour et nous revenons vers vous avec la nouvelle version.</p><p class="etat" id="etat"></p></div>`;
+    nav.innerHTML = `<div><button class="prec" data-go="-1">← Revoir</button></div>`;
+    envoyer("termine").then(ok => document.getElementById("etat").textContent = ok ? "Envoyé." : "L'envoi n'est pas passé : vérifiez votre connexion et touchez « Revoir » puis « Suivant ».");
+    return; }
+  const e = ETAPES[S.i], m = e.p.maison; couleur(m);
+  app.innerHTML = `<div class="haut">${LOGO}<span class="partie">${esc(e.p.titre)}</span></div>
+    <div class="barre"><i style="width:${(S.i+1)/ETAPES.length*100}%"></i></div>
+    <h1>${esc(e.titre)}</h1>${e.photo ? `<img class="photo" src="img/${m.id}.jpg" alt=""><p class="qui">C'est ${esc(m.qui)}.</p>` : ""}
+    ${e.champs.map(champ).join("")}<p class="etat" id="etat"></p>`;
+  const rempli = e.champs.some(f => S.rep[f.id] !== undefined && S.rep[f.id] !== "" && !(Array.isArray(S.rep[f.id]) && !S.rep[f.id].length));
+  nav.innerHTML = `<div><button class="prec" data-go="-1" aria-label="Retour">←</button><button class="suiv" data-go="1">${rempli ? "Suivant" : "Passer"}</button></div>`;
+}
+
+app.addEventListener("click", ev => {
+  const b = ev.target.closest("button"); if (!b) return;
+  if (b.dataset.f) { const f = ETAPES[S.i].champs.find(x => x.id === b.dataset.f), v = b.dataset.v;
+    if (f.type === "multi") { const a = S.rep[f.id] || []; S.rep[f.id] = a.includes(v) ? a.filter(x => x !== v) : [...a, v];
+      if (v === "__autre" && !S.rep[f.id].includes("__autre")) delete S.rep[f.id+"_autre"]; }
+    else { S.rep[f.id] = S.rep[f.id] === v ? undefined : v; if (v !== "__autre") delete S.rep[f.id+"_autre"]; }
+    garder(); dessiner(); const a = app.querySelector(`[data-autre="${f.id}"]`); if (v === "__autre" && a && !a.hidden) a.focus(); return; }
+  const id = b.dataset.plus || b.dataset.moins; if (id) { const f = ETAPES[S.i].champs.find(x => x.id === id);
+    const n = S.rep[id] ?? (b.dataset.plus ? f.min - 1 : f.min); S.rep[id] = Math.min(f.max, Math.max(f.min, n + (b.dataset.plus ? 1 : -1))); garder(); dessiner(); }
+});
+app.addEventListener("input", ev => { const t = ev.target;
+  if (t.dataset.t) S.rep[t.dataset.t] = t.value; if (t.dataset.autre) S.rep[t.dataset.autre+"_autre"] = t.value; garder(); });
+nav.addEventListener("click", ev => { const b = ev.target.closest("[data-go]"); if (!b) return;
+  const avant = ETAPES[S.i]; S.i = Math.max(-1, Math.min(ETAPES.length, S.i + +b.dataset.go)); garder();
+  if (+b.dataset.go > 0 && avant && avant.der && S.i < ETAPES.length) envoyer(`partie ${avant.pi+1}/${PARTIES.length} : ${avant.p.titre}`); // sauvegarde chez nous à chaque fin de partie
+  dessiner(); });
+dessiner();
+</script>
+</body>
+</html>
