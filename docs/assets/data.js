@@ -1,0 +1,48 @@
+// Données du site. Plus tard, l'espace d'administration (et l'assistant WhatsApp du gérant) écrira ici.
+// DEMO = true : prix, capacités, offre et dates bloquées sont des EXEMPLES, à remplacer par les vrais.
+window.MG = {
+  demo: true,
+  whatsapp: "33629962478",
+  instagram: "maisongoat_",
+  tiktok: "maisongoat_",
+  offre: { bien: "jardin", du: "2026-11-20", au: "2026-11-30", prix: 65, texte: "Le Studio Jardin à 65 € la nuit, du 20 au 30 novembre." },
+  bloquees: { villa: ["2026-11-21","2026-11-22","2026-11-23"], lanternes: ["2026-11-28","2026-11-29"], noyer: ["2026-11-14","2026-11-15","2026-11-16"] },
+  // Ordre voulu : le plus beau d'abord, puis un petit prix ; couleurs voisines pour un dégradé doux.
+  biens: [
+    { id:"villa", slug:"villa-a-la-cascade", nom:"La Villa à la Cascade", type:"Villa", sig:"#4A7FD6", deep:"#0C1A33", clair:"#DDE7F7",
+      prix:450, pers:8, ch:4, photos:18, sans:[3,11],
+      amb:"La nuit tombe, l'eau s'allume sous la roche.",
+      atouts:["Deux piscines, dont une intérieure","Cascade et grotte de pierre","Salle de cinéma","Sauna"],
+      desc:"Une villa entière autour de sa piscine et de sa cascade de pierre. À l'intérieur, une seconde piscine éclairée, une salle de cinéma et un sauna." },
+    { id:"jardin", slug:"studio-jardin", nom:"Le Studio Jardin", type:"Studio", sig:"#6E9E5A", deep:"#12210F", clair:"#E3EEDD",
+      prix:80, pers:2, ch:1, photos:7,
+      amb:"Un mur végétal, un palmier, un salon vert sauge.",
+      atouts:["Vue sur mur végétal","Salon vert sauge"],
+      desc:"Un studio face à son mur végétal, salon vert sauge et palmier derrière la baie." },
+    { id:"lanternes", slug:"duplex-aux-lanternes", nom:"Le Duplex aux Lanternes", type:"Duplex", sig:"#A3A33A", deep:"#23230E", clair:"#EEEED6",
+      prix:220, pers:6, ch:3, photos:144,
+      amb:"Velours olive, lanternes de cuivre, un patio à soi.",
+      atouts:["Deux niveaux","Patio","Bibliothèque","Salon en velours"],
+      desc:"Un duplex sur deux niveaux, avec patio et bibliothèque, habillé de velours olive et de lanternes de cuivre." },
+    { id:"terrasse", slug:"appartement-terrasse", nom:"L'Appartement Terrasse", type:"Appartement", sig:"#D6A452", deep:"#2E2109", clair:"#F7EAD2",
+      prix:200, pers:4, ch:2, photos:10,
+      amb:"Fin d'après-midi, le jacuzzi au soleil.",
+      atouts:["Terrasse privée","Jacuzzi","Résidence Terra Rocca"],
+      desc:"Un appartement ouvert sur sa terrasse privée et son jacuzzi, pour les fins de journée au soleil." },
+    { id:"ocre", slug:"duplex-ocre", nom:"Le Duplex Ocre", type:"Duplex", sig:"#C65A35", deep:"#331609", clair:"#F5DFD3",
+      prix:180, pers:4, ch:2, photos:15,
+      amb:"Un patio de brique, un bassin sous la verrière.",
+      atouts:["Bassin intérieur","Patio de brique","Résidence Terra Rocca"],
+      desc:"Un duplex tourné vers son patio de brique, avec un long bassin sous la verrière." },
+    { id:"rose", slug:"studio-ville-rose", nom:"Le Studio Ville Rose", type:"Studio", sig:"#D99A8E", deep:"#3A1F1C", clair:"#F8E6E1",
+      prix:85, pers:2, ch:1, photos:30,
+      amb:"Des voilages, et Marrakech rose derrière.",
+      atouts:["Salon lumineux","Voilages"],
+      desc:"Un studio clair et doux, voilages tirés sur la ville rose." },
+    { id:"noyer", slug:"studio-noyer", nom:"Le Studio Noyer", type:"Studio", sig:"#9C7356", deep:"#1F130B", clair:"#EFE5DC",
+      prix:90, pers:2, ch:1, photos:35,
+      amb:"Bois ciré, velours, marbre noir.",
+      atouts:["Bois de noyer et marbre","Cuisine équipée","Résidence Terra Rocca"],
+      desc:"Un studio en bois de noyer et marbre noir, pensé pour deux." }
+  ]
+};
