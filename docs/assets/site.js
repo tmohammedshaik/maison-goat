@@ -67,7 +67,7 @@ relancer();
 
 // L'étoile à huit branches (deux carrés croisés)
 // Arc marocain posé sur chaque vidéo encadrée
-const ARC = '<span class="mou" aria-hidden="true"></span><svg class="contour" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M8,100 L8,52 C1,46 1,29 14,18 C24,10 38,6 50,3 C62,6 76,10 86,18 C99,29 99,46 92,52 L92,100"/><path d="M11,100 L11,53 C5,47 5,31 16,21 C26,13 39,10 50,7 C61,10 74,13 84,21 C95,31 95,47 89,53 L89,100"/></svg>';
+const ARC = '<span class="fond" aria-hidden="true"></span><span class="bois" aria-hidden="true"><span class="mou"></span></span><span class="socle" aria-hidden="true"></span><svg class="contour" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path class="bord" d="M14,95 L14,56 C6,50 6,33 18,23 C28,15 40,12 50,9 C60,12 72,15 82,23 C94,33 94,50 86,56 L86,95"/><path class="filet" d="M14,95 L14,56 C6,50 6,33 18,23 C28,15 40,12 50,9 C60,12 72,15 82,23 C94,33 94,50 86,56 L86,95"/><path class="filet fin" d="M16.5,95 L16.5,57 C9,51 9,35 20,26 C29,18.5 41,15.5 50,12.5 C59,15.5 71,18.5 80,26 C91,35 91,51 83.5,57 L83.5,95"/></svg><span class="bordure" aria-hidden="true"></span>';
 const ZEL = '<svg class="zellige" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 8 62 38 92 50 62 62 50 92 38 62 8 50 38 38Z"/><path d="M20 20 50 32 80 20 68 50 80 80 50 68 20 80 32 50Z"/><path d="M50 36a14 14 0 1 1 0 28a14 14 0 1 1 0-28"/></svg>';
 
 const bouton = $(".cta");

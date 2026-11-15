@@ -251,11 +251,25 @@ video::-webkit-media-controls,video::-webkit-media-controls-start-playback-butto
 video.kb{animation:kb 16s ease-in-out infinite alternate}
 @keyframes kb{from{scale:1}to{scale:1.14}}
 
-/* Arc marocain (15/11) : fer à cheval brisé, double filet, écoinçons en moucharabieh semi-transparent */
-.ouv .arche{--voile:var(--nuit);--trace:#A8853A}
-.band .cadre{--voile:var(--b-deep);--trace:var(--b-sig)}
-.mou,.contour{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
-.mou{background:url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'40'%20height%3D'40'%20viewBox%3D'0%200%2040%2040'%3E%3Cg%20fill%3D'none'%20stroke%3D'%235a3f1c'%20stroke-opacity%3D'.38'%20stroke-width%3D'.8'%3E%3Cpath%20d%3D'M20%204%2036%2020%2020%2036%204%2020Z'%2F%3E%3Cpath%20d%3D'M8.7%208.7H31.3V31.3H8.7Z'%2F%3E%3Ccircle%20cx%3D'20'%20cy%3D'20'%20r%3D'4'%2F%3E%3Cpath%20d%3D'M0%2020H4M36%2020H40M20%200V4M20%2036V40'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") center/40px 40px,color-mix(in srgb,var(--voile) 72%,transparent);-webkit-mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20100%20100'%20preserveAspectRatio%3D'none'%3E%3Cpath%20fill-rule%3D'evenodd'%20d%3D'M0%2C0H100V100H0Z%20M8%2C100%20L8%2C52%20C1%2C46%201%2C29%2014%2C18%20C24%2C10%2038%2C6%2050%2C3%20C62%2C6%2076%2C10%2086%2C18%20C99%2C29%2099%2C46%2092%2C52%20L92%2C100Z'%2F%3E%3C%2Fsvg%3E") 0 0/100% 100% no-repeat;mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20100%20100'%20preserveAspectRatio%3D'none'%3E%3Cpath%20fill-rule%3D'evenodd'%20d%3D'M0%2C0H100V100H0Z%20M8%2C100%20L8%2C52%20C1%2C46%201%2C29%2014%2C18%20C24%2C10%2038%2C6%2050%2C3%20C62%2C6%2076%2C10%2086%2C18%20C99%2C29%2099%2C46%2092%2C52%20L92%2C100Z'%2F%3E%3C%2Fsvg%3E") 0 0/100% 100% no-repeat}
-.contour path{fill:none;stroke:var(--trace);stroke-width:1.4;vector-effect:non-scaling-stroke}
-.contour path+path{stroke-width:.8;opacity:.7}
-.ouv .arche .mou,.ouv .arche .contour{opacity:calc(1 - var(--p)*1.6)}
+/* Arc marocain (15/11) : fer à cheval brisé dans un panneau de bois ajouré à rosaces de 12 branches
+   (outils/motif-moucharabieh.mjs), validé par directeur-artistique et critique-visuel.
+   Derrière les découpes : un fond uni (la vidéo nette ne se voit que dans l'arc). Socle et bordure en bois. */
+.ouv .arche,.band .cadre{container-type:inline-size;box-shadow:0 20px 44px -12px rgba(70,45,15,.28)}
+.ouv .arche{--bois:#E3CFA2;--bord:#E2C995;--fond:rgba(42,30,18,.8);--trace:#A8843A}
+.band .cadre{--bois:color-mix(in srgb,var(--b-sig) 10%,#E3CFA2);--bord:color-mix(in srgb,var(--b-sig) 14%,#D9BC85);--fond:color-mix(in srgb,var(--b-clair) 82%,transparent);--trace:var(--b-sig)}
+.fond,.bois,.mou,.socle,.contour,.bordure{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+.fond{background:var(--fond);-webkit-mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20100%20100'%20preserveAspectRatio%3D'none'%3E%3Cpath%20fill-rule%3D'evenodd'%20d%3D'M0%2C0H100V100H0Z%20M14%2C95%20L14%2C56%20C6%2C50%206%2C33%2018%2C23%20C28%2C15%2040%2C12%2050%2C9%20C60%2C12%2072%2C15%2082%2C23%20C94%2C33%2094%2C50%2086%2C56%20L86%2C95Z'%2F%3E%3C%2Fsvg%3E") 0 0/100% 100% no-repeat;mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20100%20100'%20preserveAspectRatio%3D'none'%3E%3Cpath%20fill-rule%3D'evenodd'%20d%3D'M0%2C0H100V100H0Z%20M14%2C95%20L14%2C56%20C6%2C50%206%2C33%2018%2C23%20C28%2C15%2040%2C12%2050%2C9%20C60%2C12%2072%2C15%2082%2C23%20C94%2C33%2094%2C50%2086%2C56%20L86%2C95Z'%2F%3E%3C%2Fsvg%3E") 0 0/100% 100% no-repeat}
+.bois{filter:drop-shadow(0 1.5px 1.2px rgba(58,36,16,.5)) drop-shadow(0 0 .5px #B8935A)}
+.mou{background:var(--bois);
+  -webkit-mask:url("moucharabieh.svg") 50cqw 14cqw/33.333cqw auto repeat,url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20100%20100'%20preserveAspectRatio%3D'none'%3E%3Cpath%20fill-rule%3D'evenodd'%20d%3D'M0%2C0H100V100H0Z%20M14%2C95%20L14%2C56%20C6%2C50%206%2C33%2018%2C23%20C28%2C15%2040%2C12%2050%2C9%20C60%2C12%2072%2C15%2082%2C23%20C94%2C33%2094%2C50%2086%2C56%20L86%2C95Z'%2F%3E%3C%2Fsvg%3E") 0 0/100% 100% no-repeat;-webkit-mask-composite:source-in;
+  mask:url("moucharabieh.svg") 50cqw 14cqw/33.333cqw auto repeat,url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20100%20100'%20preserveAspectRatio%3D'none'%3E%3Cpath%20fill-rule%3D'evenodd'%20d%3D'M0%2C0H100V100H0Z%20M14%2C95%20L14%2C56%20C6%2C50%206%2C33%2018%2C23%20C28%2C15%2040%2C12%2050%2C9%20C60%2C12%2072%2C15%2082%2C23%20C94%2C33%2094%2C50%2086%2C56%20L86%2C95Z'%2F%3E%3C%2Fsvg%3E") 0 0/100% 100% no-repeat;mask-composite:intersect}
+.socle{top:auto;height:calc(5% + 2px);background:var(--bord);border-top:1.5px solid var(--trace)}
+.contour .bord{fill:none;stroke:var(--bord);stroke-width:7;vector-effect:non-scaling-stroke}
+.contour .filet{fill:none;stroke:var(--trace);stroke-width:1.4;vector-effect:non-scaling-stroke}
+.contour .filet.fin{stroke-width:.7;opacity:.75}
+.bordure{border:10px solid var(--bord)}
+.bordure::after{content:"";position:absolute;inset:3px;border:1.5px solid var(--trace)}
+.ouv .arche :is(.fond,.bois,.socle,.contour,.bordure){opacity:calc(1 - var(--p)*1.6)}
+.ouv h1{font-size:clamp(34px,3.4vw,62px);max-width:calc(24.5vw - 48px)}
+@media (max-width:860px){.ouv h1{font-size:10vw;max-width:calc(56vw - 24px)}
+  .band:nth-child(odd) .txt,.band:nth-child(even) .txt{background:color-mix(in srgb,var(--b-deep) 96%,transparent);margin-bottom:40px}}
