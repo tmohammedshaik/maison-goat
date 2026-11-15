@@ -1,4 +1,4 @@
-// Maison Goat : accueil, page de bien, calendrier, visionneuse. Sans bibliothèque.
+// Goat Luxury : accueil, page de bien, calendrier, visionneuse. Sans bibliothèque.
 
 // ---------- Calcul des séjours (fonctions pures, testées par test.mjs) ----------
 const iso = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
@@ -83,7 +83,7 @@ if (document.body.dataset.page === "accueil") {
   addEventListener("scroll", () => requestAnimationFrame(ouvrir), {passive:true}); ouvrir();
 
   // Ruban
-  const mots = ["Sept maisons à Marrakech","Réservation directe sur WhatsApp","Paiement sur place, espèces ou virement","Conciergerie Maison Goat"];
+  const mots = ["Nos biens à Marrakech","Réservation directe sur WhatsApp","Paiement sur place, espèces ou virement","Conciergerie Goat Luxury"];
   $(".ruban").innerHTML = `<div>${[...mots,...mots].map(m=>`<span>${m}</span>`).join("")}</div>`;
 
   // En ce moment
@@ -96,9 +96,9 @@ if (document.body.dataset.page === "accueil") {
       <li><svg viewBox="0 0 28 28"><path d="M14 3 17 11 25 14 17 17 14 25 11 17 3 14 11 11Z"/></svg><span><b>${ob ? o.texte : "Pas d'offre en cours."}</b></span></li>
       <li><svg viewBox="0 0 28 28"><path d="M4 6h20v13H11l-5 4v-4H4Z"/></svg><span><b>Sans plateforme.</b> Vous choisissez vos dates, nous vous répondons sur WhatsApp.</span></li></ul></div>`;
 
-  // Les sept maisons
+  // Nos biens
   $("#maisons").innerHTML = MG.biens.map((b,i) => `<a class="band gut" id="b-${b.id}" href="${R}${b.slug}/" style="--b-sig:${b.sig};--b-deep:${b.deep};--b-clair:${b.clair}">
-    <div class="txt ap"><span class="n">0${i+1} / 07 · ${b.type}</span><h3>${b.nom}</h3><span class="meta">${b.amb}</span>
+    <div class="txt ap"><span class="n">${String(i+1).padStart(2,"0")} · ${b.type}</span><h3>${b.nom}</h3><span class="meta">${b.amb}</span>
       <span class="prix meta">dès ${b.prix} € / nuit · ${b.pers} pers.</span><span class="voir">Entrer dans la maison</span></div>
     <div class="media"><div class="cadre">${video(b.id)}</div></div></a>`).join("");
   const px = MG.biens.map(b => b.prix); $("#fourchette").innerHTML = `De <b>${Math.min(...px)} €</b> à <b>${Math.max(...px)} €</b> la nuit`;
@@ -219,7 +219,7 @@ if (document.body.dataset.page === "bien") {
     $(".lignes").innerHTML = Object.entries(d.lignes).map(([p,n]) => `<div><span>${n} nuit${n>1?"s":""} × ${p} €${+p<b.prix?" (offre)":""}</span><span>${eur(n*p)}</span></div>`).join("");
     $(".total b").textContent = eur(d.total);
     env.removeAttribute("aria-disabled");
-    env.href = lienWA(`Bonjour Maison Goat,\nje souhaite réserver ${b.nom}\ndu ${fr(arr)} au ${fr(dep)} (${d.n} nuit${d.n>1?"s":""}),\npour ${pers} personne${pers>1?"s":""}.\nPrix affiché sur le site : ${eur(d.total)}.\nEst-ce disponible ?`);
+    env.href = lienWA(`Bonjour Goat Luxury,\nje souhaite réserver ${b.nom}\ndu ${fr(arr)} au ${fr(dep)} (${d.n} nuit${d.n>1?"s":""}),\npour ${pers} personne${pers>1?"s":""}.\nPrix affiché sur le site : ${eur(d.total)}.\nEst-ce disponible ?`);
   }
   dessine();
 
