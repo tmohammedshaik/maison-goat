@@ -26,6 +26,9 @@ const calme = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const economie = navigator.connection && navigator.connection.saveData;
 const fin = matchMedia("(pointer: fine)").matches;
 const eur = n => n.toLocaleString("fr-FR") + " €";
+// Thème sable : chaque bien a un fond clair teinté de sa couleur, son texte dans sa couleur foncée
+const mix = (a,b,t) => "#" + [1,3,5].map(i => Math.round(parseInt(a.slice(i,i+2),16)*(1-t) + parseInt(b.slice(i,i+2),16)*t).toString(16).padStart(2,"0")).join("");
+const sable = b => ({ fond: mix("#EFE6D6", b.sig, .2), encre: b.deep, accent: mix(b.sig, b.deep, .6) });
 const fr = s => versDate(s).toLocaleDateString("fr-FR",{weekday:"short",day:"numeric",month:"short"});
 const lienWA = t => `https://wa.me/${MG.whatsapp}?text=${encodeURIComponent(t)}`;
 const icoWA = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>';
@@ -97,7 +100,7 @@ if (document.body.dataset.page === "accueil") {
       <li><svg viewBox="0 0 28 28"><path d="M4 6h20v13H11l-5 4v-4H4Z"/></svg><span><b>Sans plateforme.</b> Vous choisissez vos dates, nous vous répondons sur WhatsApp.</span></li></ul></div>`;
 
   // Nos biens
-  $("#maisons").innerHTML = MG.biens.map((b,i) => `<a class="band gut" id="b-${b.id}" href="${R}${b.slug}/" style="--b-sig:${b.sig};--b-deep:${b.deep};--b-clair:${b.clair}">
+  $("#maisons").innerHTML = MG.biens.map((b,i) => `<a class="band gut" id="b-${b.id}" href="${R}${b.slug}/" style="--b-sig:${sable(b).accent};--b-deep:${sable(b).fond};--b-clair:${sable(b).encre}">
     <div class="txt ap"><span class="n">${String(i+1).padStart(2,"0")} · ${b.type}</span><h3>${b.nom}</h3><span class="meta">${b.amb}</span>
       <span class="prix meta">dès ${b.prix} € / nuit · ${b.pers} pers.</span><span class="voir">Entrer dans la maison</span></div>
     <div class="media"><div class="cadre">${video(b.id)}</div></div></a>`).join("");
@@ -125,7 +128,7 @@ if (document.body.dataset.page === "accueil") {
   });
   // Dégradé : le fond mélange les couleurs des deux maisons autour du centre de l'écran
   const rgb = h => [1,3,5].map(i => parseInt(h.slice(i,i+2),16));
-  const fonds = MG.biens.map(b => rgb(b.deep)), sec = $("#maisons");
+  const fonds = MG.biens.map(b => rgb(sable(b).fond)), sec = $("#maisons");
   const degrade = () => {
     const c = innerHeight/2, cs = bands.map(bd => { const r = bd.getBoundingClientRect(); return r.top + r.height/2; });
     let i = cs.findIndex(y => y > c); if (i === -1) i = cs.length;
@@ -151,7 +154,7 @@ if (document.body.dataset.page === "accueil") {
 // ================= PAGE D'UN BIEN =================
 if (document.body.dataset.page === "bien") {
   const b = MG.biens.find(x => x.id === document.body.dataset.id), ST = document.documentElement.style;
-  ST.setProperty("--sig", b.sig); ST.setProperty("--deep", b.deep); ST.setProperty("--clair", b.clair);
+  const t = sable(b); ST.setProperty("--sig", t.accent); ST.setProperty("--deep", t.fond); ST.setProperty("--clair", t.encre);
   $(".bhero .media").innerHTML = video(b.id);
   if (!calme) addEventListener("scroll", () => { const z = 1.12 - Math.min(.12, scrollY/innerHeight*.12); $(".bhero video").style.setProperty("--z", z); }, {passive:true});
 
