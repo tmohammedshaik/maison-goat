@@ -66,6 +66,8 @@ addEventListener("click", relancer);
 relancer();
 
 // L'étoile à huit branches (deux carrés croisés)
+// Arc marocain posé sur chaque vidéo encadrée
+const ARC = '<span class="mou" aria-hidden="true"></span><svg class="contour" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M8,100 L8,52 C1,46 1,29 14,18 C24,10 38,6 50,3 C62,6 76,10 86,18 C99,29 99,46 92,52 L92,100"/><path d="M11,100 L11,53 C5,47 5,31 16,21 C26,13 39,10 50,7 C61,10 74,13 84,21 C95,31 95,47 89,53 L89,100"/></svg>';
 const ZEL = '<svg class="zellige" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 8 62 38 92 50 62 62 50 92 38 62 8 50 38 38Z"/><path d="M20 20 50 32 80 20 68 50 80 80 50 68 20 80 32 50Z"/><path d="M50 36a14 14 0 1 1 0 28a14 14 0 1 1 0-28"/></svg>';
 
 const bouton = $(".cta");
@@ -73,7 +75,8 @@ const bouton = $(".cta");
 // ================= ACCUEIL =================
 if (document.body.dataset.page === "accueil") {
   // Ouverture : l'arche s'ouvre en plein écran
-  const ouv = $(".ouv"), arche = $(".arche"), h1 = $(".ouv h1"), caps = $$(".ouv .cap");
+  const ouv = $(".ouv"), arche = $(".arche"); arche.insertAdjacentHTML("beforeend", ARC);
+  const h1 = $(".ouv h1"), caps = $$(".ouv .cap");
   let p0 = -1;
   const ouvrir = () => {
     const r = ouv.getBoundingClientRect(), p = Math.min(1, Math.max(0, -r.top / (r.height - innerHeight)));
@@ -103,7 +106,7 @@ if (document.body.dataset.page === "accueil") {
   $("#maisons").innerHTML = MG.biens.map((b,i) => `<a class="band gut" id="b-${b.id}" href="${R}${b.slug}/" style="--b-sig:${sable(b).accent};--b-deep:${sable(b).fond};--b-clair:${sable(b).encre}">
     <div class="txt ap"><span class="n">${String(i+1).padStart(2,"0")} · ${b.type}</span><h3>${b.nom}</h3><span class="meta">${b.amb}</span>
       <span class="prix meta">dès ${b.prix} € / nuit · ${b.pers} pers.</span><span class="voir">Entrer dans la maison</span></div>
-    <div class="media"><div class="cadre">${video(b.id)}</div></div></a>`).join("");
+    <div class="media"><div class="cadre">${video(b.id)}${ARC}</div></div></a>`).join("");
   const px = MG.biens.map(b => b.prix); $("#fourchette").innerHTML = `De <b>${Math.min(...px)} €</b> à <b>${Math.max(...px)} €</b> la nuit`;
   const idx = $(".index");
   idx.innerHTML = MG.biens.map(b => `<a href="#b-${b.id}" style="--c:${b.sig}" aria-label="${b.nom}" data-id="${b.id}"></a>`).join("");

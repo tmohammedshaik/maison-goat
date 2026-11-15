@@ -35,7 +35,7 @@ header.top.plein{background:color-mix(in srgb,var(--deep) 88%,transparent);backd
 /* Ouverture : la vidéo sort d'une arche */
 .ouv{height:260vh;position:relative}
 .ouv .scene{position:sticky;top:0;height:100vh;overflow:hidden;display:grid;place-items:center}
-.ouv .arche{--p:0;position:relative;width:calc(34vw + 66vw*var(--p));height:calc(72vh + 28vh*var(--p));border-radius:calc((1 - var(--p))*50vw) calc((1 - var(--p))*50vw) 0 0/calc((1 - var(--p))*24vw) calc((1 - var(--p))*24vw) 0 0;overflow:hidden;will-change:width,height}
+.ouv .arche{--p:0;position:relative;width:calc(34vw + 66vw*var(--p));height:calc(72vh + 28vh*var(--p));overflow:hidden;will-change:width,height}
 .ouv video,.ouv .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(calc(1.25 - .25*var(--p)))}
 .ouv .voile{position:absolute;inset:0;background:linear-gradient(transparent 40%,rgba(36,32,28,.7))}
 .ouv h1{position:absolute;z-index:2;margin:0;text-align:center;font:400 clamp(46px,6vw,100px)/.95 var(--serif);text-wrap:balance;pointer-events:none;color:var(--lait);text-shadow:0 2px 30px rgba(0,0,0,.35);transition:opacity .5s,transform .8s var(--ease)}
@@ -87,7 +87,7 @@ header.top.plein{background:color-mix(in srgb,var(--deep) 88%,transparent);backd
 .band:nth-child(even){grid-template-columns:7fr 5fr}
 .band:nth-child(even) .txt{order:2}
 .band .media{position:relative;aspect-ratio:4/5;max-height:80vh;perspective:1200px}
-.band .cadre{position:absolute;inset:0;overflow:hidden;border-radius:50vw 50vw 0 0/22vw 22vw 0 0;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .4s var(--ease),border-radius 1s var(--ease);will-change:transform}
+.band .cadre{position:absolute;inset:0;overflow:hidden;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .4s var(--ease);will-change:transform}
 .band video,.band .cadre img{position:absolute;inset:-6% 0;width:100%;height:112%;object-fit:cover;filter:saturate(.9) brightness(.82);transform:translateY(var(--py,0));transition:filter 1.2s}
 .band .txt{position:relative;z-index:2;display:flex;flex-direction:column;gap:14px;max-width:520px;padding:clamp(22px,3vw,40px);background:color-mix(in srgb,var(--b-clair) 7%,transparent);border:1px solid color-mix(in srgb,var(--b-clair) 16%,transparent);border-radius:4px;backdrop-filter:blur(18px) saturate(1.2);-webkit-backdrop-filter:blur(18px) saturate(1.2);box-shadow:0 30px 80px rgba(0,0,0,.25)}
 .band:nth-child(odd) .txt{margin-right:-9vw}.band:nth-child(even) .txt{margin-left:-9vw}
@@ -100,7 +100,6 @@ header.top.plein{background:color-mix(in srgb,var(--deep) 88%,transparent);backd
 .band .voir::after{content:"";width:42px;height:1px;background:currentColor;transition:width .5s var(--ease)}
 .band:hover .voir::after{width:80px}
 .band.on video{filter:none}
-.band.on .cadre{border-radius:50vw 50vw 0 0/10vw 10vw 0 0}
 .index{position:fixed;right:max(16px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:14px;z-index:15;opacity:0;transition:opacity .4s;pointer-events:none}
 .index.vu{opacity:1;pointer-events:auto}
 .index a{width:8px;height:8px;border-radius:50%;background:var(--c);opacity:.35;transition:opacity .3s,transform .3s}
@@ -227,7 +226,7 @@ body.bien header.top{background:color-mix(in srgb,var(--deep) 88%,transparent);b
   .mois>div:nth-child(2){display:none}
   .autres{grid-template-columns:1fr 1fr}
   .index,.top nav .cache{display:none}
-  .ouv .arche{width:calc(78vw + 22vw*var(--p));height:calc(62vh + 38vh*var(--p));border-radius:calc((1 - var(--p))*50vw) calc((1 - var(--p))*50vw) 0 0/calc((1 - var(--p))*40vw) calc((1 - var(--p))*40vw) 0 0}
+  .ouv .arche{width:calc(78vw + 22vw*var(--p));height:calc(62vh + 38vh*var(--p));}
   .recap{position:static}
 }
 @media (prefers-reduced-motion:reduce){
@@ -251,3 +250,12 @@ body.bien header.top{background:color-mix(in srgb,var(--deep) 88%,transparent);b
 video::-webkit-media-controls,video::-webkit-media-controls-start-playback-button,video::-webkit-media-controls-overlay-play-button{display:none!important;-webkit-appearance:none;opacity:0}
 video.kb{animation:kb 16s ease-in-out infinite alternate}
 @keyframes kb{from{scale:1}to{scale:1.14}}
+
+/* Arc marocain (15/11) : fer à cheval brisé, double filet, écoinçons en moucharabieh semi-transparent */
+.ouv .arche{--voile:var(--nuit);--trace:#A8853A}
+.band .cadre{--voile:var(--b-deep);--trace:var(--b-sig)}
+.mou,.contour{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+.mou{background:url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'40'%20height%3D'40'%20viewBox%3D'0%200%2040%2040'%3E%3Cg%20fill%3D'none'%20stroke%3D'%235a3f1c'%20stroke-opacity%3D'.38'%20stroke-width%3D'.8'%3E%3Cpath%20d%3D'M20%204%2036%2020%2020%2036%204%2020Z'%2F%3E%3Cpath%20d%3D'M8.7%208.7H31.3V31.3H8.7Z'%2F%3E%3Ccircle%20cx%3D'20'%20cy%3D'20'%20r%3D'4'%2F%3E%3Cpath%20d%3D'M0%2020H4M36%2020H40M20%200V4M20%2036V40'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") center/40px 40px,color-mix(in srgb,var(--voile) 72%,transparent);-webkit-mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20100%20100'%20preserveAspectRatio%3D'none'%3E%3Cpath%20fill-rule%3D'evenodd'%20d%3D'M0%2C0H100V100H0Z%20M8%2C100%20L8%2C52%20C1%2C46%201%2C29%2014%2C18%20C24%2C10%2038%2C6%2050%2C3%20C62%2C6%2076%2C10%2086%2C18%20C99%2C29%2099%2C46%2092%2C52%20L92%2C100Z'%2F%3E%3C%2Fsvg%3E") 0 0/100% 100% no-repeat;mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20100%20100'%20preserveAspectRatio%3D'none'%3E%3Cpath%20fill-rule%3D'evenodd'%20d%3D'M0%2C0H100V100H0Z%20M8%2C100%20L8%2C52%20C1%2C46%201%2C29%2014%2C18%20C24%2C10%2038%2C6%2050%2C3%20C62%2C6%2076%2C10%2086%2C18%20C99%2C29%2099%2C46%2092%2C52%20L92%2C100Z'%2F%3E%3C%2Fsvg%3E") 0 0/100% 100% no-repeat}
+.contour path{fill:none;stroke:var(--trace);stroke-width:1.4;vector-effect:non-scaling-stroke}
+.contour path+path{stroke-width:.8;opacity:.7}
+.ouv .arche .mou,.ouv .arche .contour{opacity:calc(1 - var(--p)*1.6)}
